@@ -20,7 +20,7 @@ def main():
 
         chromo = line.rstrip().split(',')[0]
 
-        out_dir = args.out + '/' + chromo
+        out_dir = args.out + '/' + chromo + '/'
 
         if not os.path.isdir(out_dir):
             os.makedirs(out_dir)
@@ -38,7 +38,7 @@ def main():
                          '-query_name {} -query_fa {} '
                          '-out {}').format(args.ref_name, args.ref_fa, query_name, chromo_fasta, out_dir)
 
-        q_sub([lastz_wrapper], out=out_dir + '/' + query_name, scheduler='SLURM')
+        q_sub([lastz_wrapper], out=out_dir + query_name, scheduler='SLURM')
 
 
 if __name__ == '__main__':
