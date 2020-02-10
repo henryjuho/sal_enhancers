@@ -33,7 +33,7 @@ def main():
         subprocess.call(cmd, shell=True)
 
         # sub align job
-        lastz_wrapper = ('~sal_enhancers/homeoblock_alignments/wholegenome_lastz_chain_net.py '
+        lastz_wrapper = ('~/sal_enhancers/homeoblock_alignments/wholegenome_lastz_chain_net.py '
                          '-ref_name {} -ref_fa {} '
                          '-query_name {} -query_fa {} '
                          '-out {}').format(args.ref_name, args.ref_fa, query_name, chromo_fasta, out_dir)
