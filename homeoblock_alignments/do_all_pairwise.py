@@ -29,7 +29,7 @@ def main():
 
         # make chromosomal fastas
         chromo_fasta = out_dir + '/' + query_name + '.fa'
-        cmd = 'samtools faidx {} {} > {}'.format(args.query_fa, chromo, chromo_fasta)
+        cmd = 'samtools faidx {} {} > {}'.format(args.query_fa, query_name, chromo_fasta)
         subprocess.call(cmd, shell=True)
 
         # sub align job
