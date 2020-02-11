@@ -6,7 +6,7 @@ def main():
     for maf in sys.stdin:
 
         maf = maf.rstrip()
-        out_maf = maf.replace('.maf', '.b.maf')
+        out_maf = maf.replace('.sing.maf', '.b.sing.maf')
 
         with open(out_maf, 'w') as b_maf:
 
