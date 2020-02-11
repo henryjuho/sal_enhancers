@@ -39,8 +39,13 @@ Pairwise alignments were performed per salmon chromosome, against the whole pike
 
 ```shell script
 python do_all_pairwise.py -chr_list ref_seq_chromo_key.csv -ref_fa /scratch/project_2002047/sal_enhance/alignments/GCF_004634155.1_Eluc_v4_genomic.rename.fa -ref_name pike -query_fa /scratch/project_2002047/sal_enhance/alignments/GCF_000233375.1_ICSASG_v2_genomic.sm.rename.fa -query_name salmon -out /scratch/project_2002047/sal_enhance/alignments/
+ls /scratch/project_2002047/sal_enhance/alignments/NC_0273*/*maf | cut -d '.' -f 1,2,3,4,5 | while read i; do single_cov2 $i.maf R=pike S=pike > $i.sing.maf; done
+ls /scratch/project_2002047/sal_enhance/alignments/NC_0273*/*.sing.maf | python make_b_mafs.py 
 ```
 
 ## Multiple alignments per block
+
+Multiple alignments were then generated for each unique pair of salmon chromosomes listed in table S6 in Lien et al (2016) against the pike genome.
+
 
 
