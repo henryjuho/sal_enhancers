@@ -34,8 +34,6 @@ def main():
         align_dir = out_dir + 'aligned/'
         tmp_dir = align_dir + 'tmp/'
 
-        out_maf = chr_x + '_vs_' + chr_y + '.maf'
-
         print('creating: ' + out_dir)
         os.makedirs(out_dir)
 
