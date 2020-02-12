@@ -51,7 +51,6 @@ def main():
         print('creating: ' + tmp_dir)
         os.makedirs(tmp_dir)
 
-        print('out maf: ' + out_dir + out_maf)
         print()
 
         roast = ('~/sal_enhancers/homeoblock_alignments/roast_homeoblock.py '
