@@ -28,7 +28,7 @@ def main():
 
     tree = ('"((salmon salmon_b) pike)"')
 
-    ref_name = maf_dir.split('/')[-2].split('.')[0]
+    ref_name = args.ref
     
     os.chdir(maf_dir)
 
@@ -39,6 +39,8 @@ def main():
              tree + ' ' +
              mafs + ' ' +
              out_maf)
+
+    print(roast)
 
     subprocess.call(roast, shell=True)
 
