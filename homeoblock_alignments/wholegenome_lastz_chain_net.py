@@ -11,6 +11,7 @@ parser.add_argument('-ref_name', help='name of reference species', required=True
 parser.add_argument('-query_fa', help='query fasta', required=True)
 parser.add_argument('-query_name', help='name of query species', required=True)
 parser.add_argument('-out', help='Output directory', required=True)
+parser.add_argument('-hspthresh', default='2200')
 args = parser.parse_args()
 
 # variables
@@ -49,7 +50,7 @@ lastz_cmd = ('lastz ' +
              query_2bit + '[nameparse=darkspace] '
              '--format=axt '
              '--step=19 '
-             '--hspthresh=2200 '
+             '--hspthresh=' + args.hspthresh + ' '
              '--inner=2000 '
              '--ydrop=3400 '
              '--gappedthresh=10000 '
