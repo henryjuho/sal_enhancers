@@ -45,7 +45,7 @@ out_prefix = out_dir + ref_name + '.' + query_name
 # lastz commandline
 lastz_output = out_prefix + '.axt'
 lastz_cmd = ('lastz ' +
-             target_2bit + '[multiple][nameparse=darkspace] ' +
+             target_2bit + '[nameparse=darkspace] ' +
              query_2bit + '[nameparse=darkspace] '
              '--format=axt '
              '--step=19 '
