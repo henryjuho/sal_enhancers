@@ -20,7 +20,7 @@ def main():
     keys = {x.split(',')[1].rstrip(): x.split(',')[0] for x in open(args.key)}
 
     ref_salmon = args.sal_ref
-    salmon_query = args.sal_quey
+    salmon_query = args.sal_query
     pike = args.pike_query
 
     for line in open(args.chromo_pairs).readlines()[1:]:
