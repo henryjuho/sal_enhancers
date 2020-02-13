@@ -49,7 +49,7 @@ def main():
         lastz_job1 = ('~/sal_enhancers/homeoblock_alignments/wholegenome_lastz_chain_net.py '
                       '-ref_name salmon -ref_fa {} '
                       '-query_name salmon_b -query_fa {} '
-                      '-out {} -hspthresh 5000').format(ref_chromo_fasta, query_chromo_fasta, out_dir)
+                      '-out {} -hspthresh 8000').format(ref_chromo_fasta, query_chromo_fasta, out_dir)
 
         lastz_job2 = ('~/sal_enhancers/homeoblock_alignments/wholegenome_lastz_chain_net.py '
                       '-ref_name salmon -ref_fa {} '
