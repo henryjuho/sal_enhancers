@@ -50,8 +50,6 @@ Multiple alignments were then generated for each unique pair of salmon chromosom
 
 ```shell script
 ls -d /scratch/project_2002047/sal_enhance/alignments/NC_0273* | python chromo_pair_multi.py 
-updated to here
-python chromo_pair_multi.py -chromo_pairs chromo_comparisons.csv -key ref_seq_chromo_key.csv -in_dir /scratch/project_2002047/sal_enhance/alignments/ 
 mkdir /scratch/project_2002047/sal_enhance/alignments/all_combinations
 cp /scratch/project_2002047/sal_enhance/alignments/*_vs_*/aligned/*maf /scratch/project_2002047/sal_enhance/alignments/all_combinations/
 ls /scratch/project_2002047/sal_enhance/alignments/all_combinations/*maf | while read i; do gzip $i; done
