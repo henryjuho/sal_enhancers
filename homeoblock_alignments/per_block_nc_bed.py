@@ -10,7 +10,6 @@ def main():
     # arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-bed_dir', help='directory of wga beds', required=True)
-    parser.add_argument('-nc_bed', help='bed file of non-coding regions', required=True)
     parser.add_argument('-block_info', help='csv file of block coordinates and names', required=True)
     parser.add_argument('-key', help='refseq ID chromo name key', required=True)
     parser.add_argument('-out', help='Output directory', required=True)
@@ -25,7 +24,7 @@ def main():
         if not in_bed.endswith('.wga.bed.gz'):
             continue
 
-        chr_a, chr_b = in_bed.decode('utf-8').split('/')[-1].split('.mult')[0].split('_vs_')
+        chr_a, chr_b = in_bed.split('/')[-1].split('.mult')[0].split('_vs_')
 
         if chr_a not in bed_dict.keys():
             bed_dict[chr_a] = {}
@@ -69,6 +68,7 @@ def main():
                           block_bed_out=out)
 
         print('running: ' + cmd + '\n')
+        subprocess.call(cmd, shell=True)
 
 
 if __name__ == '__main__':
