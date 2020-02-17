@@ -44,7 +44,7 @@ python do_all_pairwise.py -chromo_pairs chromo_comparisons.csv -key ref_seq_chro
 ls /scratch/project_2002047/sal_enhance/alignments/*_vs_*/*maf | cut -d '.' -f 1-4 | while read i; do single_cov2 $i.maf R=salmon S=salmon > $i.sing.maf; done
 ```
 
-## Multiple alignments per block
+## Multiple alignments per chromosome comparison
 
 Multiple alignments were then generated for each unique pair of salmon chromosomes listed in table S6 in Lien et al (2016) against the pike genome.
 
@@ -60,6 +60,14 @@ These were then converted to ```.wga.bed``` format:
 ```shell script
 ls /scratch/project_2002047/sal_enhance/alignments/all_combinations/*maf.gz | python in2bed.py 
 ls /scratch/project_2002047/sal_enhance/alignments/all_combinations/*bed.gz | while read i; do tabix -pbed $i; done
+```
+
+## Getting block specific alignments
+
+```shell script
+mkdir /scratch/project_2002047/sal_enhance/alignments/block_wga_beds
+python per_block_nc_bed.py -bed_dir /scratch/project_2002047/sal_enhance/alignments/all_combinations/ -block_info lien_et_al_2016_tableS6.csv -key ref_seq_chromo_key.csv -out /scratch/project_2002047/sal_enhance/alignments/block_wga_beds/ 
+
 ```
 
 
