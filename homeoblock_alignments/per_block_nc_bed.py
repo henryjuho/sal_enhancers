@@ -3,6 +3,7 @@
 import argparse
 import os
 import subprocess
+import gzip
 
 
 def main():
@@ -48,13 +49,14 @@ def main():
         comb_bed = bed_dict[chromo][chromo_q]
 
         # bed name
-        query_bed_name = args.out + block + '.query_coords.bed'
+        query_bed_name = args.out + block + '.query_coords.bed.gz'
 
         # gen bed file for query
         print('writing: ' + query_bed_name)
 
-        with open(query_bed_name, 'w') as q_bed:
-            print(chromo_q, start_q, end_q, sep='\t', file=q_bed)
+        with gzip.open(query_bed_name, 'w') as q_bed:
+            coords = '\t'.join([chromo_q, start_q, end_q]).encode('utf-8')
+            q_bed.write(coords)
 
         # output name
         out = args.out + block + '.wga.bed.gz'
