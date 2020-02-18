@@ -58,7 +58,7 @@ def main():
             seqs[spp] += align_block[spp]
 
         else:
-            missing = ''.join(['M' for i in range(0, seq_len)])
+            missing = ''.join(['N' for i in range(0, seq_len)])
             seqs[spp] += missing
 
     # summarise
@@ -67,19 +67,14 @@ def main():
         miss_len = seqs[spp].count('M')
         print(spp, align_len, miss_len, round(miss_len/align_len, 3), sep=',')
 
-    # trim out missing (N and M) and indels and output
-    zipped_seq = zip(seqs['salmon'], seqs['salmon_b'], seqs['pike'])
-    clean_seqs = ['', '', '']
-    for pos in zipped_seq:
-        if 'M' in pos or 'N' in pos or '-' in pos:
-            continue
+    # out fasta
+    for spp in ('salmon', 'salmon_b', 'pike'):
+        print('>' + spp)
 
-        clean_seqs = [''.join(x) for x in zip(clean_seqs, pos)]
+        for i in range(0, align_len, 60):
+            print(seqs[spp][i: i+60])
 
-    print(len(clean_seqs[0]))
-    print(clean_seqs[0])
-    print(clean_seqs[1])
-    print(clean_seqs[2])
+        print()
 
 
 if __name__ == '__main__':
