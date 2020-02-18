@@ -30,8 +30,6 @@ def main():
                 first = False
                 continue
 
-            dict_print(seqs)
-
             # process previous block
             seq_len = max([len(x) for x in align_block.values()])
 
@@ -64,6 +62,10 @@ def main():
             seqs[spp] += missing
 
     # summarise
+    for spp in sorted(seqs.keys(), reverse=True):
+        align_len = len(seqs[spp])
+        miss_len = seqs[spp].count('M')
+        print(spp, align_len, miss_len, round(miss_len/align_len, 3), sep=',')
 
 
     # trim out missing (N and M) and indels and output
