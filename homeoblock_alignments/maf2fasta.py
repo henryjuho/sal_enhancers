@@ -62,14 +62,24 @@ def main():
             seqs[spp] += missing
 
     # summarise
-    for spp in sorted(seqs.keys(), reverse=True):
+    for spp in ('salmon', 'salmon_b', 'pike'):
         align_len = len(seqs[spp])
         miss_len = seqs[spp].count('M')
         print(spp, align_len, miss_len, round(miss_len/align_len, 3), sep=',')
 
-
     # trim out missing (N and M) and indels and output
-    #zip()
+    zipped_seq = zip(seqs['salmon'], seqs['salmon_b'], seqs['pike'])
+    clean_seqs = ['', '', '']
+    for pos in zipped_seq:
+        if 'M' in pos or 'N' in pos or '-' in pos:
+            continue
+
+        clean_seqs = [''.join(x) for x in zip(clean_seqs, pos)]
+
+    print(len(clean_seqs[0]))
+    print(clean_seqs[0])
+    print(clean_seqs[1])
+    print(clean_seqs[2])
 
 
 if __name__ == '__main__':
