@@ -3,14 +3,6 @@
 import sys
 
 
-def dict_print(dictionary):
-
-    for k in sorted(dictionary.keys()):
-        print(k, ': ', dictionary[k], sep='')
-
-    print()
-
-
 def main():
 
     seqs = {'salmon': '', 'salmon_b': '', 'pike': ''}
@@ -39,7 +31,7 @@ def main():
                     seqs[spp] += align_block[spp]
 
                 else:
-                    missing = ''.join(['M' for i in range(0, seq_len)])
+                    missing = ''.join(['N' for i in range(0, seq_len)])
                     seqs[spp] += missing
 
             align_block = {}
@@ -64,15 +56,30 @@ def main():
     # summarise
     for spp in ('salmon', 'salmon_b', 'pike'):
         align_len = len(seqs[spp])
-        miss_len = seqs[spp].count('M')
+        miss_len = seqs[spp].count('N')
         print(spp, align_len, miss_len, round(miss_len/align_len, 3), sep=',')
+
+    # clean
+    clean_seqs = {'salmon': '', 'salmon_b': '', 'pike': ''}
+    for i in range(0, align_len):
+        pos_seqs = [seqs['salmon'][i], seqs['salmon_b'][i], seqs['pike']]
+
+        if 'N' in pos_seqs or '-' in pos_seqs:
+            continue
+
+        clean_seqs['salmon'] += pos_seqs[0]
+        clean_seqs['salmon_b'] += pos_seqs[1]
+        clean_seqs['pike'] += pos_seqs[2]
+
+    clean_len = len(clean_seqs['salmon'])
+    print('cleaned', align_len, clean_len, round(clean_len / align_len, 3), sep=',')
 
     # out fasta
     for spp in ('salmon', 'salmon_b', 'pike'):
         print('>' + spp)
 
         for i in range(0, align_len, 60):
-            print(seqs[spp][i: i+60])
+            print(clean_seqs[spp][i: i+60])
 
         print()
 
