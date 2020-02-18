@@ -27,6 +27,7 @@ def main():
         # write old block and store new
         elif line.startswith('a'):
             if first:
+                first = False
                 continue
 
             dict_print(seqs)
