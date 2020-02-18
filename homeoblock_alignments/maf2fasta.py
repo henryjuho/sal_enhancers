@@ -1,11 +1,22 @@
 #!/usr/bin/env python
 
+import argparse
 import sys
 
 
 def main():
 
+    # arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-block', help='homeoblock id', required=True)
+    parser.add_argument('-out', help='output directory', required=True)
+    args = parser.parse_args()
+
     seqs = {'salmon': '', 'salmon_b': '', 'pike': ''}
+
+    # out_files
+    log = open(args.out + args.block + '.align_summary.csv', 'w')
+    fa_out = open(args.out + args.block + '.clean.fa', 'w')
 
     # process piped maf
     align_block = {}
@@ -57,7 +68,7 @@ def main():
     for spp in ('salmon', 'salmon_b', 'pike'):
         align_len = len(seqs[spp])
         miss_len = seqs[spp].count('N')
-        print(spp, align_len, miss_len, round(miss_len/align_len, 3), sep=',')
+        print(args.block, spp, align_len, miss_len, round(miss_len/align_len, 3), sep=',', file=log)
 
     # clean
     clean_seqs = {'salmon': '', 'salmon_b': '', 'pike': ''}
@@ -72,16 +83,19 @@ def main():
         clean_seqs['pike'] += pos_seqs[2]
 
     clean_len = len(clean_seqs['salmon'])
-    print('cleaned', align_len, clean_len, round(clean_len / align_len, 3), sep=',')
+    print(args.block, 'all_cleaned', align_len, clean_len, round(clean_len / align_len, 3), sep=',', file=log)
 
     # out fasta
     for spp in ('salmon', 'salmon_b', 'pike'):
-        print('>' + spp)
+        print('>' + spp, file=fa_out)
 
         for i in range(0, align_len, 60):
-            print(clean_seqs[spp][i: i+60])
+            print(clean_seqs[spp][i: i+60], file=fa_out)
 
-        print()
+        print(file=fa_out)
+
+    fa_out.close()
+    log.close()
 
 
 if __name__ == '__main__':
