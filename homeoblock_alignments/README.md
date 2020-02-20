@@ -58,5 +58,16 @@ These were then converted to ```.fasta``` format:
 
 ```shell script
 python get_block_fastas.py -maf_dir /scratch/project_2002047/sal_enhance/alignments/block_multiple/
+python clean_fastas.py -fa_dir /scratch/project_2002047/sal_enhance/alignments/block_multiple/ > homeoblock_alignment_summary.csv
 ```
 
+## Divergence analysis
+
+Within block divergence was estimated using the K80 model in ape.
+
+```shell script
+echo 'block,pairwise,salmon_branch,salmonb_branch' > homeoblock_divergence.csv
+ls /scratch/project_2002047/sal_enhance/alignments/block_multiple/*.clean.fa | while read i; do Rscript k80_div_est.R $i; done >> homeoblock_divergence.csv
+```
+
+Divergence results: [homeoblock_divergence.csv](homeoblock_divergence.csv)
