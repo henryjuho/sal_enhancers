@@ -1,7 +1,7 @@
 import argparse
 import subprocess
 import os
-from qsub import q_print as q_sub
+from qsub import q_sub
 import shutil
 
 
