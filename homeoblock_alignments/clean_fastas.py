@@ -48,7 +48,7 @@ def main():
         for spp_seq in [sal, sal_b, pike]:
             for base in 'N-':
                 found_pos = find_all(spp_seq.upper(), base)
-                trim_positions |= found_pos
+                trim_positions |= set(found_pos)
 
         # clean alignment
         trim_positions = sorted(list(trim_positions))
