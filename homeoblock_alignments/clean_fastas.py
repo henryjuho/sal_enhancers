@@ -44,7 +44,7 @@ def main():
         pike_aligned = len(pike) - pike.upper().count('N') - pike.count('-')
 
         # get all '-' and 'N' positions
-        trim_positions = {}
+        trim_positions = set()
         for spp_seq in [sal, sal_b, pike]:
             for base in 'N-':
                 found_pos = find_all(spp_seq.upper(), base)
