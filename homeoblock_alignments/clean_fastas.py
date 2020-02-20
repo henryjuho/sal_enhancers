@@ -1,6 +1,7 @@
 import os
 import argparse
 import pysam
+import ctypes
 
 
 def find_all(seq, base):
@@ -14,11 +15,12 @@ def find_all(seq, base):
 
 
 def seq_replace(seq, indices, char='X'):
-
+    
+    seq = ctypes.create_unicode_buffer(seq)
     for i in indices:
-        seq = seq[:i] + char + seq[i+1:]
+        seq[i] = char
 
-    return seq
+    return seq.value
 
 
 def main():
@@ -42,6 +44,8 @@ def main():
         raw_len = len(sal) - sal.upper().count('N') - sal.count('-')
         sal_b_aligned = len(sal_b) - sal_b.upper().count('N') - sal_b.count('-')
         pike_aligned = len(pike) - pike.upper().count('N') - pike.count('-')
+        
+        print(raw_len)
 
         # get all '-' and 'N' positions
         trim_positions = set()
@@ -49,10 +53,14 @@ def main():
             for base in 'N-':
                 found_pos = find_all(spp_seq.upper(), base)
                 trim_positions |= set(found_pos)
+        
+        print(len(trim_positions))
 
         # clean alignment
         trim_positions = sorted(list(trim_positions))
+        print(len(trim_positions))
         sal = seq_replace(sal, trim_positions).replace('X', '')
+        print(len(sal))
         sal_b = seq_replace(sal_b, trim_positions).replace('X', '')
         pike = seq_replace(pike, trim_positions).replace('X', '')
 
