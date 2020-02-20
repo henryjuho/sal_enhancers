@@ -3,7 +3,8 @@ library(ape)
 args = commandArgs(TRUE)
 
 fasta = args[1]
-region = args[2]
+region = strsplit(fasta, '/')[[1]][7]
+region = strsplit(region, '[.]')[[1]][1]
 
 data = read.FASTA(fasta)
 
@@ -17,3 +18,4 @@ sal = (sal_pike - salb_pike + sal_salb) / 2
 salb = (salb_pike - sal_pike + sal_salb) / 2
 
 cat(region, sal_salb, sal, salb, sep=',')
+cat('\n')
