@@ -59,9 +59,9 @@ def sfs_for_locus_list(loci, dict1, dict2):
     for locus in loci:
 
         neu_sfs += dict1[locus][0]
-        sel_sfs += dict1[locus][1]
+        sel_sfs += dict2[locus][0]
 
-        neu_call += dict2[locus][0]
+        neu_call += dict1[locus][1]
         sel_call += dict2[locus][1]
 
     return neu_sfs, neu_call, sel_sfs, sel_call
@@ -107,8 +107,8 @@ def main():
         neu_sfs, neu_call, sel_sfs, sel_call = sfs_for_locus_list(locus_list, sfs_ref, sfs_target)
 
         # convert to anavar form
-        neu_counts = sfs2counts(neu_sfs, n=60)
-        sel_counts = sfs2counts(sel_sfs, n=60)
+        neu_counts = ','.join(sfs2counts(neu_sfs, n=60))
+        sel_counts = ','.join(sfs2counts(sel_sfs, n=60))
 
         print(i, neu_counts, neu_call, sel_counts, sel_call, sep='\t')
 
