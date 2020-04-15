@@ -21,7 +21,7 @@ def main():
         output_file = '{}sfs_ncall_regional.{}.{}.txt'.format(args.out_dir, args.region, chromo)
         log_file = '{}sfs_ncall_regional.{}.{}.log.txt'.format(args.out_dir, args.region, chromo)
 
-        cmd = ('python ~/sal_bal_sel/summary_stats/bootstrappable_sfs_data.py '
+        cmd = ('python ~/sal_enhancers/dfe/bootstrappable_sfs_data.py '
                '-bed_regs {bed_regs} '
                '-bed_target {bed_target} '
                '-vcf {vcf} '
