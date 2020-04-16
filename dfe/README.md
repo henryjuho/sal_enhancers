@@ -43,12 +43,12 @@ Anavar was run:
 
 ```shell script
 mkdir /scratch/project_2002047/sal_enhance/cds_dfe
-cat cds_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/cds_dfe/ss_cds_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 10000 
+cat cds_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/cds_dfe/ss_cds_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
 
 mkdir /scratch/project_2002047/sal_enhance/utr_dfe
-cat utr_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/utr_dfe/ss_utr_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 10000 
+cat utr_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/utr_dfe/ss_utr_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
 
 mkdir /scratch/project_2002047/sal_enhance/intron_dfe 
-cat intron_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/intron_dfe/ss_intron_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 10000 
+cat intron_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/intron_dfe/ss_intron_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
 ```
 
