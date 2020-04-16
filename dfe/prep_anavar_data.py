@@ -58,8 +58,8 @@ def sfs_for_locus_list(loci, dict1, dict2):
 
     for locus in loci:
 
-        neu_sfs += dict1[locus][0]
-        sel_sfs += dict2[locus][0]
+        neu_sfs += [round(x, 3) for x in dict1[locus][0]]
+        sel_sfs += [round(x, 3) for x in dict2[locus][0]]
 
         neu_call += dict1[locus][1]
         sel_call += dict2[locus][1]
