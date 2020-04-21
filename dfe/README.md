@@ -44,11 +44,22 @@ Anavar was run:
 ```shell script
 mkdir /scratch/project_2002047/sal_enhance/cds_dfe
 cat cds_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/cds_dfe/ss_cds_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+ls /scratch/project_2002047/sal_enhance/cds_dfe/*results.txt | python gather_bs_reps.py > salsal30_cds_gamma-dfe_100bs.csv
 
 mkdir /scratch/project_2002047/sal_enhance/utr_dfe
 cat utr_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/utr_dfe/ss_utr_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+ls /scratch/project_2002047/sal_enhance/utr_dfe/*results.txt | python gather_bs_reps.py > salsal30_utr_gamma-dfe_100bs.csv
 
 mkdir /scratch/project_2002047/sal_enhance/intron_dfe 
 cat intron_dfe_data.txt | python enhancer_dfe.py -n 60 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/intron_dfe/ss_intron_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+ls /scratch/project_2002047/sal_enhance/intron_dfe/*results.txt | python gather_bs_reps.py > salsal30_intron_gamma-dfe_100bs.csv
 ```
 
+Estimated DFEs were binned into selective categories and 95% confidence intervals calculated:
+
+```shell script
+ls salsal30_*_gamma-dfe_100bs.csv | python bin_dfe.py > binned_dfe_allregions.csv
+Rscript summarise_dfe.R
+```
+
+<img src="all_regions_dfe.png" width="24">
