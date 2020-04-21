@@ -62,4 +62,4 @@ ls salsal30_*_gamma-dfe_100bs.csv | python bin_dfe.py > binned_dfe_allregions.cs
 Rscript summarise_dfe.R
 ```
 
-<img src="all_regions_dfe.png" width="24">
+<img src="all_regions_dfe.png" width="300">
