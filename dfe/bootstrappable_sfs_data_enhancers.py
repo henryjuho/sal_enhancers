@@ -32,7 +32,7 @@ def main():
         counter += 1
 
         # get call
-        call_cmd = ('zgrep {} {} | '
+        call_cmd = ('zgrep -w {} {} | '
                     'bedtools getfasta -fi {} -bed stdin | '
                     'grep -v ">" | tr -d "\\n"').format(locus, args.bed_target, args.call_fa)
 
@@ -42,7 +42,7 @@ def main():
         n_call = n_call.decode('utf-8').count('K')
 
         # get sfs
-        sfs_cmd = ('zgrep {} {} | '
+        sfs_cmd = ('zgrep -w {} {} | '
                    'bedtools intersect -header -a {} -b stdin | '
                    '~/sfs_utils/vcf2raw_sfs.py '
                    '-mode snp').format(locus, args.bed_target, args.vcf)
