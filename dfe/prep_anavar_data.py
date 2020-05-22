@@ -90,7 +90,9 @@ def main():
 
     sfs_ref = read_sfs_file(args.sfs_ref)
     sfs_target = read_sfs_file(args.sfs_target)
-    all_loci = list(sfs_ref.keys())
+
+    # get list of loci present for both data sources
+    all_loci = list([x for x in sfs_ref.keys() if x in sfs_target.keys()])
 
     print('bs_rep', 'neu_sfs', 'neu_call', 'sel_sfs', 'sel_call', sep='\t')
 
