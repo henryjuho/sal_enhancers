@@ -2,9 +2,13 @@ library(ggplot2)
 library(dplyr)
 library(viridis)
 
+setwd('/Users/henryjuho/sal_enhancers/dfe')
 
 dfe <- read.csv('binned_dfe_allregions.csv')
-dfe$region <- factor(dfe$region, levels=c('intron', 'utr', 'cds'))
+str(dfe)
+dfe$region <- factor(dfe$region, levels=c('intron-enhancers', 'utr-enhancers', 'intron', 'utr', 'cds'))
+
+str(dfe)
 
 raw <- subset(dfe, rep==0)
 bs <- subset(dfe, rep!=0)
@@ -16,10 +20,13 @@ plot_data <- full_join(raw, cis)
 
 dfe_plot <- ggplot(plot_data, aes(x=bin, y=proportion, fill=region)) +
   geom_bar(stat='identity', position = position_dodge(width=0.9)) +
-  scale_fill_manual(values=viridis(3)) +
+  scale_fill_manual(values=viridis(5)) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), position = position_dodge(width=0.9), width=0.5) +
   theme_bw() +
-  theme(legend.title=element_blank(), legend.position=c(0.8, 0.75)) +
+  theme(legend.title=element_blank(), legend.position=c(0.8, 0.75),
+        legend.text = element_text(colour = "black", size = 6),
+        legend.key.size = unit(.33, "cm"),
+        legend.background = element_blank()) +
   xlab(expression(gamma == 4 * N[e] * s))
 
 png('all_regions_dfe.png', width=3, height=2.5, units='in', res=320)
