@@ -1,3 +1,7 @@
+# Construction of a training set for BQSR and VQSR
+
+We used a training set consisting of variants called by both gatk and samtools, and also used on available SNP chips.
+
 GATK calling:
 
 ```
