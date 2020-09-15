@@ -22,7 +22,7 @@ def main():
         log_file = '{}sfs_ncall_regional.{}.{}.log.txt'.format(args.out_dir, args.region, chromo)
 
         if args.bed_regs == 'NA':
-            cmd = ('python ~/sal_enhancers/dfe/bootstrappable_sfs_data_enhancers.py '
+            cmd = ('python ~/sal_enhancers/sfs/bootstrappable_sfs_data_enhancers.py '
                    '-bed_target {bed_target} '
                    '-vcf {vcf} '
                    '-call_fa {call_fa} '
@@ -39,7 +39,7 @@ def main():
                                       log=log_file)
 
         else:
-            cmd = ('python ~/sal_enhancers/dfe/bootstrappable_sfs_data.py '
+            cmd = ('python ~/sal_enhancers/sfs/bootstrappable_sfs_data.py '
                    '-bed_regs {bed_regs} '
                    '-bed_target {bed_target} '
                    '-vcf {vcf} '
