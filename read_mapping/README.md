@@ -1,9 +1,18 @@
-```
+Downloading and mapping reads
+
+The raw reads from Barson et al 2015 were downloaded from the ENA <https://www.ebi.ac.uk/ena/browser/home>. Download links can be found in [PRJEB10744.txt](PRJEB10744.txt).
+
+```shell script
 mkdir /scratch/project_2002047/barson_mapping_v2
 mkdir /scratch/project_2002047/barson_mapping_v2/reads
 
 python download_reads.py
+```
 
+Reads were cleaned/trimmed using trim galore with cutadapt and then mapped to the salmon reference genome with BWA. Duplicates were marked and read group info added with picard.
+The above was performed per fastq pair, the resulting bam files were merged to produce individual bams.
+
+```shell script
 mkdir /scratch/project_2002047/barson_mapping_v2/clean_reads
 python clean_reads.py -fastq_dir /scratch/project_2002047/barson_mapping_v2/reads/ -out_dir /scratch/project_2002047/barson_mapping_v2/clean_reads/
 
@@ -26,9 +35,10 @@ sort bams_done.txt | uniq -c | grep -w '1' | tr -s ' ' | cut -d ' ' -f 3 | while
 
 ls /scratch/project_2002047/barson_mapping_v2/merged_bams/*.txt | python coverage_summary.py
 ```
+Read coverage in resulting mapped data:
 
 | run accession | sample | mean coverage | median coverage |
-|:--:|:--:|:--:|:--:|
+|:---|:--:|:--:|:--:|
 | ERR1013407 | Alta_12_0001 | 7.520952 | 8 |
 | ERR1013495 | Alta_12_0124 | 3.349194 | 3 |
 | ERR1013583 | Alta_12_0228 | 7.705269 | 8 |
