@@ -80,4 +80,7 @@ Hotspots         : 632084
 Low spp coverage : 1272810
 Ambiguous        : 204555
 Total unpolarised: 2109449
+
+bgzip /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.t99_5_snps.allfilters.polarised.vcf
+tabix -pvcf /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.t99_5_snps.allfilters.polarised.vcf.gz
 ```
