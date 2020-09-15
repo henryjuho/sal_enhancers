@@ -1,4 +1,4 @@
-Downloading and mapping reads
+# Downloading and mapping reads
 
 The raw reads from Barson et al 2015 were downloaded from the ENA <https://www.ebi.ac.uk/ena/browser/home>. Download links can be found in [PRJEB10744.txt](PRJEB10744.txt).
 
