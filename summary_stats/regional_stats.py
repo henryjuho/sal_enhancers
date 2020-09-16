@@ -74,7 +74,7 @@ def main():
             if args.sel:
                 sfs = string2freq(sel_sfs, n)
                 call = int(sel_call)
-                region = sfs_file.split('/')[-1].split('_dfe_')[0]
+                region = sfs_file.split('/')[-1].split('_sfs_')[0]
 
             else:
                 sfs = string2freq(neu_sfs, n)

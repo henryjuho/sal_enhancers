@@ -7,10 +7,7 @@ rm(list=ls())
 
 setwd('/Users/henryjuho/sal_enhancers/summary_stats')
 
-sel_dat <- read.csv('summary_stats_sel_sites_usfs.csv')
-neu_dat <- read.csv('summary_stats_neu_sites_usfs.csv')
-
-stats <- rbind(sel_dat, neu_dat)
+stats <- read.csv('summary_stats_usfs.csv')
 
 stats$region <- factor(stats$region, levels=c('4fold', 'intergenic_enhancers', 'intron_enhancers', 'utr_enhancers', 'intron', 'utr', 'cds'))
 
