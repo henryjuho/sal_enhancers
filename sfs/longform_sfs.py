@@ -9,7 +9,7 @@ def main():
 
         txt = txt.rstrip()
 
-        region = txt.split('/')[-1].split('_')[0]
+        region = txt.split('/')[-1].split('_sfs_')[0]
 
         for line in open(txt):
 
