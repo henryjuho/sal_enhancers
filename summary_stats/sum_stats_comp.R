@@ -27,25 +27,41 @@ theta_plot <- ggplot(plot_data, aes(x=region, y=theta)) +
   geom_point(stat='identity', position='dodge') +
   scale_fill_manual(values=viridis(2)) +
   geom_errorbar(aes(ymin=t_lwr, ymax=t_upr), position = position_dodge(width=0.9), width=0.5) +
-  theme_bw() +
+  theme_classic() +
   labs(x='', y=expression(theta)) +
-  theme(axis.text.x=element_text(angle=45, hjust=1))
+  theme(legend.title=element_text(colour = "black"),
+        legend.position = "bottom",
+        legend.text = element_text(colour = "black",size=8),
+        axis.text.y = element_text(colour = "black",size=8),
+        axis.text.x = element_text(colour = "black",size=8, angle=45, hjust=1),
+        strip.background = element_blank())
+
 
 pi_plot <- ggplot(plot_data, aes(x=region, y=pi)) +
   geom_point(stat='identity', position='dodge') +
   scale_fill_manual(values=viridis(2)) +
   geom_errorbar(aes(ymin=p_lwr, ymax=p_upr), position = position_dodge(width=0.9), width=0.5) +
-  theme_bw() +
+  theme_classic() +
   labs(x='', y=expression(pi)) +
-  theme(axis.text.x=element_text(angle=45, hjust=1))
+  theme(legend.title=element_text(colour = "black"),
+        legend.position = "bottom",
+        legend.text = element_text(colour = "black",size=8),
+        axis.text.y = element_text(colour = "black",size=8),
+        axis.text.x = element_text(colour = "black",size=8, angle=45, hjust=1),
+        strip.background = element_blank())
 
 d_plot <- ggplot(plot_data, aes(x=region, y=tajimas_d)) +
   geom_bar(stat='identity', position='dodge') +
   scale_fill_manual(values=viridis(2)) +
   geom_errorbar(aes(ymin=d_lwr, ymax=d_upr), position = position_dodge(width=0.9), width=0.5) +
-  theme_bw() +
+  theme_classic() +
   labs(x='', y="Tajima's D") +
-  theme(axis.text.x=element_text(angle=45, hjust=1))
+  theme(legend.title=element_text(colour = "black"),
+        legend.position = "bottom",
+        legend.text = element_text(colour = "black",size=8),
+        axis.text.y = element_text(colour = "black",size=8),
+        axis.text.x = element_text(colour = "black",size=8, angle=45, hjust=1),
+        strip.background = element_blank())
 
 png('summary_stats.png', res=320, units='in', height=3, width=9)
 
