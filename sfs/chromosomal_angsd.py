@@ -35,7 +35,7 @@ def main():
                      '-doSaf 1 -fold 1 '
                      '-anc {} '
                      '-GL 2 -minMapQ 2 -minQ 20 -minInd 31 -setMinDepth 124 -setMaxDepth 496 '
-                     '-r {} '
+                     '-rf {} -doCounts 1 '
                      '-out {}').format(args.bam_list, args.ref, reg_file_name, chromo_out)
 
         sfs_cmd = 'realSFS {stem}.saf.idx -maxIter 100 > {stem}.sfs'.format(stem=chromo_out)
