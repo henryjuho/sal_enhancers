@@ -1,6 +1,6 @@
 import argparse
 import pysam
-from qsub import q_print as q_sub
+from qsub import q_sub
 
 
 def angsd_region_file(pysam_bed, chromo, out):
