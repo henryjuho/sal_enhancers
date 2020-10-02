@@ -1,5 +1,5 @@
 import argparse
-from qsub import q_print as q_sub
+from qsub import q_sub
 
 
 def main():
@@ -12,10 +12,9 @@ def main():
     args = parser.parse_args()
 
     for chromo in open(args.autosome_list):
-
-        chromo_out = args.out + '_' + chromo
-
+        
         chromo = chromo.rstrip()
+        chromo_out = args.out + '_' + chromo
 
         angsd_cmd = ('angsd -bam {} '
                      '-doSaf 1 -fold 1 '
@@ -26,7 +25,7 @@ def main():
 
         sfs_cmd = 'realSFS {stem}.saf.idx -maxIter 100 > {stem}.sfs'.format(stem=chromo_out)
 
-        q_sub([angsd_cmd, sfs_cmd], out=chromo_out, rmem=8, mem=8, scheduler='SLURM')
+        q_sub([angsd_cmd, sfs_cmd], out=chromo_out, rmem=20, mem=20, scheduler='SLURM')
 
 
 if __name__ == '__main__':
