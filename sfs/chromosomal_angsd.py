@@ -1,5 +1,15 @@
 import argparse
-from qsub import q_sub
+import pysam
+from qsub import q_print as q_sub
+
+
+def angsd_region_file(pysam_bed, chromo, out):
+
+    with open(out, 'w') as reg_file:
+        for line in pysam_bed.fetch(chromo, parser=pysam.asTuple()):
+
+            new_line = '{}:{}-{}'.format(*line[0:3])
+            print(new_line, file=reg_file)
 
 
 def main():
@@ -8,24 +18,29 @@ def main():
     parser.add_argument('-bam_list', help='list of bam files', required=True)
     parser.add_argument('-ref', help='reference genome to pass to -anc', required=True)
     parser.add_argument('-autosome_list', help='List of autosomes', required=True)
+    parser.add_argument('-bed', help='bed file of regions to get sfs for', required=True)
     parser.add_argument('-out', help='Ouput directory and file stem', required=True)
     args = parser.parse_args()
 
+    bed = pysam.TabixFile(args.bed)
+
     for chromo in open(args.autosome_list):
-        
+
         chromo = chromo.rstrip()
         chromo_out = args.out + '_' + chromo
+        reg_file_name = chromo_out + '.regions.txt'
+        angsd_region_file(bed, chromo, reg_file_name)
 
         angsd_cmd = ('angsd -bam {} '
                      '-doSaf 1 -fold 1 '
                      '-anc {} '
                      '-GL 2 -minMapQ 2 -minQ 20 -minInd 31 -setMinDepth 124 -setMaxDepth 496 '
                      '-r {} '
-                     '-out {}').format(args.bam_list, args.ref, args.region, chromo_out)
+                     '-out {}').format(args.bam_list, args.ref, reg_file_name, chromo_out)
 
         sfs_cmd = 'realSFS {stem}.saf.idx -maxIter 100 > {stem}.sfs'.format(stem=chromo_out)
 
-        q_sub([angsd_cmd, sfs_cmd], out=chromo_out, rmem=20, mem=20, scheduler='SLURM')
+        q_sub([angsd_cmd, sfs_cmd], out=chromo_out, rmem=30, mem=30, scheduler='SLURM')
 
 
 if __name__ == '__main__':
