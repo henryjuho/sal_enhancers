@@ -8,11 +8,11 @@ def main():
     for sfs_in in sys.stdin:
 
         sfs = [float(x) for x in open(sfs_in.rstrip()).readlines()[0].split()]
-        n = len(sfs) * 2
+        n = (len(sfs)-1) * 2
 
         for i in range(0, len(sfs)):
 
-            freq = i / n
+            freq = round(i / n, 3)
             count = sfs[i]
 
             if freq not in merged_sfs.keys():
