@@ -33,10 +33,10 @@ def main():
 
         angsd_cmd = ('angsd -bam {} '
                      '-doSaf 1 -fold 1 '
-                     '-anc {} '
+                     '-anc {} -ref {} '
                      '-GL 1 -baq 1 -minMapQ 15 -minQ 20 -minInd 31 -setMinDepth 124 -setMaxDepth 496 '
                      '-rf {} -doCounts 1 '
-                     '-out {}').format(args.bam_list, args.ref, reg_file_name, chromo_out)
+                     '-out {}').format(args.bam_list, args.ref, args.ref, reg_file_name, chromo_out)
 
         sfs_cmd = 'realSFS {stem}.saf.idx -maxIter 100 > {stem}.sfs'.format(stem=chromo_out)
 
