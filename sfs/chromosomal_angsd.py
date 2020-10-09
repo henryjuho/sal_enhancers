@@ -40,7 +40,7 @@ def main():
 
         sfs_cmd = 'realSFS {stem}.saf.idx -maxIter 100 > {stem}.sfs'.format(stem=chromo_out)
 
-        q_sub([angsd_cmd, sfs_cmd], out=chromo_out, rmem=30, mem=30, scheduler='SLURM')
+        q_sub([angsd_cmd, sfs_cmd], out=chromo_out, t=16, rmem=30, mem=30, scheduler='SLURM')
 
 
 if __name__ == '__main__':
