@@ -34,7 +34,7 @@ def main():
         angsd_cmd = ('angsd -bam {} '
                      '-doSaf 1 -fold 1 '
                      '-anc {} -ref {} '
-                     '-GL 2 -baq 1 -minMapQ 10 -minQ 15 -minInd 31 -setMinDepth 124 -setMaxDepth 496 '
+                     '-GL 2 -baq 0 -minMapQ 5 -minQ 10 -minInd 31 -setMinDepth 124 -setMaxDepth 496 '
                      '-rf {} -doCounts 1 '
                      '-out {}').format(args.bam_list, args.ref, args.ref, reg_file_name, chromo_out)
 
