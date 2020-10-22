@@ -9,7 +9,7 @@ setwd('/Users/henryjuho/sal_enhancers/summary_stats')
 
 stats <- read.csv('summary_stats_usfs.csv')
 
-stats$region <- factor(stats$region, levels=c('4fold', 'intergenic_enhancers', 'intron_enhancers', 'utr_enhancers', 'intron', 'utr', 'cds'))
+stats$region <- factor(stats$region, levels=c('4fold', 'intergenic', 'intergenic_enhancers', 'intron', 'intron_enhancers', 'utr', 'utr_enhancers', 'cds', 'cds_enhancers', 'all_enhancers'))
 
 raw <- subset(stats, bs==0)
 bs <- subset(stats, bs!=0)
