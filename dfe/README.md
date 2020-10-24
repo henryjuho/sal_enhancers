@@ -20,6 +20,19 @@ mkdir /scratch/project_2002047/sal_enhance/intron_dfe
 cat ../sfs/intron_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/intron_dfe/ss_intron_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
 ls /scratch/project_2002047/sal_enhance/intron_dfe/*results.txt | python gather_bs_reps.py > salsal31_intron_gamma-dfe_100bs.csv
 
+mkdir /scratch/project_2002047/sal_enhance/intergenic_dfe 
+cat ../sfs/intergenic_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/intergenic_dfe/ss_intergenic_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+ls /scratch/project_2002047/sal_enhance/intergenic_dfe/*results.txt | python gather_bs_reps.py > salsal31_intergenic_gamma-dfe_100bs.csv
+
+mkdir /scratch/project_2002047/sal_enhance/all_enhancers_dfe
+cat ../sfs/all_enhancers_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/all_enhancers_dfe/ss_all-enhancers_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+ls /scratch/project_2002047/sal_enhance/all_enhancers_dfe/*results.txt | python gather_bs_reps.py > salsal31_all-enhancers_gamma-dfe_100bs.csv
+
+mkdir /scratch/project_2002047/sal_enhance/cds_enhancers_dfe  
+cat ../sfs/cds_enhancers_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/cds_enhancers_dfe/ss_cds-enhancers_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+# 5 jobs failed: todo
+ll /scratch/project_2002047/sal_enhance/cds_enhancers_dfe/*error |  grep -w 0 | tr -s ' ' | cut -d ' ' -f 9 | cut -d '.' -f 1-3 | while read i; do echo $i.results.txt; done | python gather_bs_reps.py > salsal31_cds-enhancers_gamma-dfe_100bs.csv
+
 mkdir /scratch/project_2002047/sal_enhance/utr_enhancers_dfe 
 cat ../sfs/utr_enhancers_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/utr_enhancers_dfe/ss_utr-enhancers_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
 # 4 jobs failed: todo
