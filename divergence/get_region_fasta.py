@@ -5,8 +5,8 @@ from qsub import q_print as q_sub
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-wga', 'whole genome alignment bed', required=True)
-    parser.add_argument('-bed', 'bed file of region', required=True)
+    parser.add_argument('-wga', help='whole genome alignment bed', required=True)
+    parser.add_argument('-bed', help='bed file of region', required=True)
     parser.add_argument('-region', help='region label', required=True)
     parser.add_argument('-out_stem', help='output directory and file stem', required=True)
     args = parser.parse_args()
