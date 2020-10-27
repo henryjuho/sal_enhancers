@@ -24,7 +24,7 @@ def main():
     ape_cmd = 'Rscript ~/sal_enhancers/divergence/k80_div_est.R {out_stem}.wga.fa {region} > {out}'.format(
         out_stem=out_stem, region=args.region, out=out_stem + '.div.txt')
 
-    q_sub([bed_cmd, fasta_cmd, ape_cmd], out=args.out_stem, rmem=12, mem=12, scheduler='SLURM')
+    q_sub([bed_cmd, fasta_cmd, ape_cmd], out=out_stem, rmem=12, mem=12, scheduler='SLURM')
 
 
 if __name__ == '__main__':
