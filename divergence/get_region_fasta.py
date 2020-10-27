@@ -17,11 +17,12 @@ def main():
     bed_cmd = 'bedtools intersect -a {wga} -b {bed} | bgzip -c > {out_stem}.wga.bed.gz'.format(
         wga=args.wga, bed=args.bed, out_stem=out_stem)
 
-    fasta_cmd = 'zcat {out_stem}.wga.bed.gz | ~/sal_enhancers/divergence/wga2fa.py -out_stem {out_stem}.wga'.format(
-        out_stem=out_stem)
+    fasta_cmd = ('zcat {out_stem}.wga.bed.gz | '
+                 '~/sal_enhancers/divergence/wga2fa.py -out_stem {out_stem}.wga -spp {spp}').format(
+        out_stem=out_stem, spp=args.spp)
 
-    ape_cmd = 'Rscript ~/sal_enhancers/divergence/k80_div_est.R {out_stem}.wga.fa {region} -spp {spp}'.format(
-        out_stem=out_stem, region=args.region, spp=args.spp)
+    ape_cmd = 'Rscript ~/sal_enhancers/divergence/k80_div_est.R {out_stem}.wga.fa {region} '.format(
+        out_stem=out_stem, region=args.region)
 
     q_sub([bed_cmd, fasta_cmd, ape_cmd], out=args.out_stem, rmem=12, mem=12, scheduler='SLURM')
 
