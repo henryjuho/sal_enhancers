@@ -9,7 +9,7 @@ data <- read.FASTA(fasta)
 
 divergance <- dist.dna(data, model = "K80")
 
-cat(paste(attr(divergance, "Labels"), sep='_'))
+cat(paste('region', 'divergence', sep='_'))
 cat('\n')
 
 sal_charr <- divergance[1]
