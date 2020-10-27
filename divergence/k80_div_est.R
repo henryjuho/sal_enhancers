@@ -18,5 +18,5 @@ charr_trout <- divergance[3]
 
 sal <- (sal_charr - charr_trout + sal_trout) / 2
 
-cat(region, gt, sep='\t')
+cat(region, sal, sep='\t')
 cat('\n')
