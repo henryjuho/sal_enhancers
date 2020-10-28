@@ -173,14 +173,14 @@ def main():
             all_res.append(x)
 
     # calc AIC
-    aics = sorted([z[-1] for z in all_res[1:]])
+    aics = sorted([z[-2] for z in all_res[1:]])
     best_aic = aics[0]
 
     print(*all_res[0] + ['delta_AIC'], sep=',')
     
     out_data = []
     for line in all_res[1:]:
-        delta = delta_aic(line[-1], best_aic)
+        delta = delta_aic(line[-2], best_aic)
         out_data.append((delta, line + [delta]))
     
     for line in sorted(out_data, reverse=True, key=lambda x: x[0]):
