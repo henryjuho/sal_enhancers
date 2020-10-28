@@ -5,6 +5,7 @@ cds	0.009020994
 cds_enhancers	0.007779776
 intergenic	0.01502859
 intergenic_enhancers	0.01289476
+intron	0.01354097
 intron_enhancers	0.0123576
 utr	0.01152652
 utr_enhancers	0.01102266
