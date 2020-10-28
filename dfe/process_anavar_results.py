@@ -176,7 +176,7 @@ def main():
     aics = sorted([z[-1] for z in all_res[1:]])
     best_aic = aics[0]
 
-    print(*all_res[0] + ['delta_AIC', 'alpha'], sep=',')
+    print(*all_res[0] + ['delta_AIC'], sep=',')
     
     out_data = []
     for line in all_res[1:]:
