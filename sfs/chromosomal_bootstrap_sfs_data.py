@@ -56,7 +56,7 @@ def main():
                                       out=output_file,
                                       log=log_file)
 
-        q_sub([cmd], out=output_file.replace('.txt', ''), mem=8, rmem=8, t=48, scheduler='SLURM')
+        q_sub([cmd], out=output_file.replace('.txt', ''), mem=16, rmem=16, t=48, scheduler='SLURM')
 
 
 if __name__ == '__main__':
