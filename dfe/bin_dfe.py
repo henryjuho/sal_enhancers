@@ -35,11 +35,11 @@ def main():
             scale = row['sel_scale']
 
             # dfe bins for plotting
-            bins = [(0, 1), (1, 10), (10, 100), (100, np.inf)]
+            bins = [(0, 4), (4, 40), (40, 400), (400, np.inf)]
 
             for b in bins:
 
-                label = '{} - {}'.format(b[0], b[1])
+                label = '{} - {}'.format(b[0]/4, b[1]/4)
 
                 # integrate gamma dist probability density function between bin boundaries
                 prop = integrate.quad(g_pdf, b[0], b[1], args=(shape, scale))[0]
