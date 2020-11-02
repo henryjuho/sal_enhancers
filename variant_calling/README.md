@@ -51,10 +51,12 @@ ls /scratch/project_2002047/barson_reseq/genotyped_variants/*vcf | python ../tra
 
 We retained variants passing the 99.5 tranche cut off and then applied repeat filters, depth filters (twice and half the mean depth of 8X), and removed SNPs with missing genotypes.
 
+### t 99.5 - used
+
 ```
 mkdir /scratch/project_2002047/barson_reseq/post_vqsr
 gatk --java-options "-Xmx14G" VariantFiltration -R /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -V /scratch/project_2002047/barson_reseq/vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.5.pass.vcf -O /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.5.pass.rmarked.vcf --mask /scratch/tuyida/bartonhe/sal_ref/salmo_salar_repeats.bed.gz --mask-name REPEAT
- gatk --java-options "-Xmx14G" SelectVariants -R /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -V /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.5.pass.rmarked.vcf -O /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.5.pass.rfiltered.biallelic.vcf --exclude-filtered -restrict-alleles-to BIALLELIC
+gatk --java-options "-Xmx14G" SelectVariants -R /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -V /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.5.pass.rmarked.vcf -O /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.5.pass.rfiltered.biallelic.vcf --exclude-filtered -restrict-alleles-to BIALLELIC
 
 python ~/sal_bal_sel/training_set/depth_filter.py -vcf /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.5.pass.rfiltered.biallelic.vcf -mean_depth 8 -N 31
 Depth range: 4.0 - 16.0
@@ -75,6 +77,37 @@ Summary of filtering:
 | repeats and biallelic |5078947 |
 | depth | 4837611  |
 | missing calls | 3723849 |
+
+### t 99.9 - not used
+
+```shell script
+mkdir /scratch/project_2002047/barson_reseq/t99.9_post_vqsr
+gatk --java-options "-Xmx14G" VariantFiltration -R /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -V /scratch/project_2002047/barson_reseq/vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.9.pass.vcf -O /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.9.pass.rmarked.vcf --mask /scratch/tuyida/bartonhe/sal_ref/salmo_salar_repeats.bed.gz --mask-name REPEAT
+gatk --java-options "-Xmx14G" SelectVariants -R /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -V /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.9.pass.rmarked.vcf -O /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.9.pass.rfiltered.biallelic.vcf --exclude-filtered -restrict-alleles-to BIALLELIC
+python ~/sal_bal_sel/training_set/depth_filter.py -vcf /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.9.pass.rfiltered.biallelic.vcf -mean_depth 8 -N 31
+Depth range: 4.0 - 16.0
+5544383 variants passed, 385421 variants failed
+Output written to /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.9.pass.rfiltered.biallelic.dpfiltered.vcf
+
+python filter_uncalled_snps.py -vcf /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t99.9.pass.rfiltered.biallelic.dpfiltered.vcf | bgzip -c > /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.t99_9_snps.allfilters.vcf.gz
+tabix -pvcf  /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.t99_9_snps.allfilters.vcf.gz
+```
+
+### t 95 - not used
+
+```shell script
+mkdir /scratch/project_2002047/barson_reseq/t95.0_post_vqsr
+gatk --java-options "-Xmx14G" VariantFiltration -R /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -V /scratch/project_2002047/barson_reseq/vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t95.0.pass.vcf -O /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t95.0.pass.rmarked.vcf --mask /scratch/tuyida/bartonhe/sal_ref/salmo_salar_repeats.bed.gz --mask-name REPEAT
+gatk --java-options "-Xmx14G" SelectVariants -R /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -V /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t95.0.pass.rmarked.vcf -O /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t95.0.pass.rfiltered.biallelic.vcf --exclude-filtered -restrict-alleles-to BIALLELIC
+
+python ~/sal_bal_sel/training_set/depth_filter.py -vcf /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t95.0.pass.rfiltered.biallelic.vcf -mean_depth 8 -N 31
+Depth range: 4.0 - 16.0
+4198953 variants passed, 200959 variants failed
+Output written to /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t95.0.pass.rfiltered.biallelic.dpfiltered.vcf
+
+python filter_uncalled_snps.py -vcf /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.raw.snps.indels.recalibrated.filtered_t95.0.pass.rfiltered.biallelic.dpfiltered.vcf | bgzip -c > /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.t95_0_snps.allfilters.vcf.gz
+tabix -pvcf  /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.t95_0_snps.allfilters.vcf.gz
+```
 
 ## Callable sites
 
