@@ -4,7 +4,9 @@ library(viridis)
 
 setwd('/Users/henryjuho/sal_enhancers/dfe')
 
-dfe <- read.csv('binned_dfe_allregions.csv')
+# dfe <- read.csv('binned_dfe_allregions.csv')
+dfe <- read.csv('binned_gammadfe_allregions_nes.csv')
+
 str(dfe)
 dfe$region <- factor(dfe$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', 'all-enhancers'))
 levels(dfe$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', 'H3K27ac peaks (all)')
@@ -32,10 +34,10 @@ dfe_plot <- ggplot(plot_data, aes(x=bin, y=proportion, fill=region)) +
         axis.text.y = element_text(colour = "black",size=8),
         axis.text.x = element_text(colour = "black",size=8),
         strip.background = element_blank())+
-  xlab(expression(gamma == 4 * N[e] * s)) +
+  xlab(expression(N[e] * s)) +
   guides(fill = guide_legend(nrow = 2))
 
-png('all_regions_dfe.png', width=6, height=3, units='in', res=320)
+png('binned_gammadfe_allregions_nes.png', width=6, height=3, units='in', res=320)
 
 dfe_plot
 
