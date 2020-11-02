@@ -7,8 +7,8 @@ mkdir /scratch/project_2002047/sal_enhance/sfs
 
 mkdir /scratch/project_2002047/sal_enhance/sfs_2/
 python chromosomal_bootstrap_sfs_data.py -bed_regs /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_gene_names.bed.gz -bed_target /scratch/tuyida/bartonhe/sal_ref/salmo_salar_0fold.bed.gz -vcf /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.t99_5_snps.allfilters.polarised.vcf.gz -call_fa /scratch/project_2002047/barson_reseq/callable_sites/salsal_31.callable.fa -region 0fold -chromo_list /scratch/tuyida/bartonhe/sal_ref/autosomes_list.txt -out_dir /scratch/project_2002047/sal_enhance/sfs_2/ 
-head -n 1 /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.NC_027300.1.txt > /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.all.txt
-cat /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.NC*.1.txt | grep -v ^region >> /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.all.txt
+head -n 1 /scratch/project_2002047/sal_enhance/sfs_2/sfs_ncall_regional.0fold.NC_027300.1.txt > /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.all.txt
+cat /scratch/project_2002047/sal_enhance/sfs_2/sfs_ncall_regional.0fold.NC*.1.txt | grep -v ^region >> /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.all.txt
 
 python chromosomal_bootstrap_sfs_data.py -bed_regs /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_gene_names.bed.gz -bed_target /scratch/tuyida/bartonhe/sal_ref/salmo_salar_4fold.bed.gz -vcf /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.t99_5_snps.allfilters.polarised.vcf.gz -call_fa /scratch/project_2002047/barson_reseq/callable_sites/salsal_31.callable.fa -region 4fold -chromo_list /scratch/tuyida/bartonhe/sal_ref/autosomes_list.txt -out_dir /scratch/project_2002047/sal_enhance/sfs/ 
 head -n 1 /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.NC_027300.1.txt > /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.all.txt
@@ -69,6 +69,10 @@ python chromosomal_bootstrap_sfs_data.py -bed_regs NA -bed_target enhancer_peaks
 head -n 1 /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.all_enhancers.NC_027300.1.txt > /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.all_enhancers.all.txt
 cat /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.all_enhancers.NC*.1.txt | grep -v ^region >> /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.all_enhancers.all.txt
 
+python chromosomal_bootstrap_sfs_data.py -bed_regs NA -bed_target enhancers_0fold.bed.gz -vcf /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.t99_5_snps.allfilters.polarised.vcf.gz -call_fa /scratch/project_2002047/barson_reseq/callable_sites/salsal_31.callable.fa -region 0fold_enhancers -chromo_list /scratch/tuyida/bartonhe/sal_ref/autosomes_list.txt -out_dir /scratch/project_2002047/sal_enhance/enhance_sfs/
+head -n 1 /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.0fold_enhancers.NC_027300.1.txt > /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.0fold_enhancers.all.txt
+cat /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.0fold_enhancers.NC*.1.txt | grep -v ^region >> /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.0fold_enhancers.all.txt
+
 python chromosomal_bootstrap_sfs_data.py -bed_regs NA -bed_target enhancers_cds.bed.gz -vcf /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.t99_5_snps.allfilters.polarised.vcf.gz -call_fa /scratch/project_2002047/barson_reseq/callable_sites/salsal_31.callable.fa -region cds_enhancers -chromo_list /scratch/tuyida/bartonhe/sal_ref/autosomes_list.txt -out_dir /scratch/project_2002047/sal_enhance/enhance_sfs/
 head -n 1 /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.cds_enhancers.NC_027300.1.txt > /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.cds_enhancers.all.txt
 cat /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.cds_enhancers.NC*.1.txt | grep -v ^region >> /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.cds_enhancers.all.txt
@@ -89,6 +93,7 @@ cat /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.intergen
 SFS data was then prepared:
 
 ```shell script
+python prep_anavar_data.py -sfs_ref /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.all.txt -sfs_target /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.all.txt -bs_rep 100 > 0fold_sfs_data.txt
 python prep_anavar_data.py -sfs_ref /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.all.txt -sfs_target /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.all.txt -bs_rep 100 > 4fold_sfs_data.txt
 python prep_anavar_data.py -sfs_ref /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.all.txt -sfs_target /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.cds.all.txt -bs_rep 100 > cds_sfs_data.txt
 python prep_anavar_data.py -sfs_ref /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.all.txt -sfs_target /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.utr.all.txt -bs_rep 100 > utr_sfs_data.txt

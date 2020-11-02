@@ -9,7 +9,7 @@ raw <- subset(sfs_dat, bs_rep==0)
 
 sfs <- ggplot(raw, aes(x=freq, y=proportion, fill=region)) +
   geom_bar(stat='identity', position='dodge') +
-  scale_fill_viridis(discrete = T) +
+  scale_fill_viridis(discrete = T, guide = guide_legend(nrow=2)) +
   xlab('derived allele count') +
   theme_classic() +
   theme(legend.title=element_blank(),
