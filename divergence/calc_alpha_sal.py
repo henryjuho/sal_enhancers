@@ -37,7 +37,7 @@ def main():
                 for x in open(args.div) if not x.startswith('reg')}
     keys = []
 
-    print('region', 'bs_rep', 'theta', 'shape', 'scale', 'mean_gamma', 'alpha', 'omega', sep=',')
+    print('region', 'bs_rep', 'theta', 'shape', 'scale', 'error', 'alpha', 'omega', sep=',')
 
     for line in sys.stdin:
         line = line.rstrip().split(',')
@@ -51,7 +51,9 @@ def main():
         theta = float(bs_dat['sel_theta'])
         shape = float(bs_dat['sel_shape'])
         scale = float(bs_dat['sel_scale'])
-        mean_gamma = shape * scale
+        e = float(bs_dat['neu_e_1'])
+
+        # mean_gamma = shape * scale
         # median_gamma = gamma.median(a=shape, scale=scale)
 
         rep = bs_dat['rep']
@@ -62,7 +64,7 @@ def main():
         line_alpha = alpha_continuous(shape=shape, scale=scale, ds=div_data['4fold'], dn=div_data[region])
         line_omega = omega_alpha(shape=shape, scale=scale, ds=div_data['4fold'], dn=div_data[region])
 
-        print(region, rep, theta, shape, scale, mean_gamma, line_alpha, line_omega, sep=',')
+        print(region, rep, theta, shape, scale, e, line_alpha, line_omega, sep=',')
 
 
 if __name__ == '__main__':
