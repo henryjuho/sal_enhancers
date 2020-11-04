@@ -1,4 +1,6 @@
 region	divergence
+0fold	0.005590048
+0fold_enhancers	0.004402424
 4fold	0.01805807
 all_enhancers	0.01199041
 cds	0.009020994
