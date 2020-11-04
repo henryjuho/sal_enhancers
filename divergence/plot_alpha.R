@@ -8,8 +8,8 @@ setwd('~/sal_enhancers/divergence')
 alp <- read.csv('alpha_estimates.csv')
 
 str(alp)
-alp$region <- factor(alp$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', 'all-enhancers'))
-levels(alp$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', 'H3K27ac peaks (all)')
+alp$region <- factor(alp$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', 'all-enhancers'))
+levels(alp$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (all)')
 
 alp$bin <- 'alpha'
 
@@ -23,7 +23,7 @@ plot_data <- full_join(raw, cis)
 
 alpha_plot <- ggplot(plot_data, aes(x=bin, y=alpha, fill=region)) +
   geom_bar(stat='identity', position = position_dodge(width=0.9)) +
-  scale_fill_manual(values=viridis(10)[2:10]) +
+  scale_fill_viridis(discrete = T) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), position = position_dodge(width=0.9), width=0.5) +
   theme_classic() + labs(y='', x=expression(alpha)) +
   theme(legend.title=element_blank(),
@@ -42,7 +42,7 @@ plot_data <- full_join(raw, omega_cis)
 
 omega_plot <- ggplot(plot_data, aes(x=bin, y=omega, fill=region)) +
   geom_bar(stat='identity', position = position_dodge(width=0.9)) +
-  scale_fill_manual(values=viridis(10)[2:10]) +
+  scale_fill_viridis(discrete = T) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), position = position_dodge(width=0.9), width=0.5) +
   theme_classic() + labs(y='', x=expression(omega[alpha])) +
   theme(legend.title=element_blank(),

@@ -4,8 +4,8 @@ setwd('~/sal_enhancers/divergence')
 
 mles <- read.csv('alpha_estimates.csv')
 
-mles$region <- factor(mles$region, levels=rev(c('all-enhancers', 'intergenic-enhancers', 'intergenic', 'intron-enhancers', 'intron','utr-enhancers',  'utr', 'cds-enhancers', 'cds')))
-levels(mles$region) <- rev(c( 'H3K27ac peaks (all)', 'H3K27ac peaks (intergenic)', 'intergenic', 'H3K27ac peaks (intron)', 'intron', 'H3K27ac peaks (UTR)', 'UTR', 'H3K27ac peaks (CDS)', 'CDS'))
+mles$region <- factor(mles$region, levels=rev(c('all-enhancers', 'intergenic-enhancers', 'intergenic', 'intron-enhancers', 'intron','utr-enhancers',  'utr', 'cds-enhancers', 'cds', '0fold')))
+levels(mles$region) <- rev(c( 'H3K27ac peaks (all)', 'H3K27ac peaks (intergenic)', 'intergenic', 'H3K27ac peaks (intron)', 'intron', 'H3K27ac peaks (UTR)', 'UTR', 'H3K27ac peaks (CDS)', 'CDS', '0fold degenerate'))
 
 raw <- subset(mles, bs_rep==0)
 bs <- subset(mles, bs_rep!=0)
