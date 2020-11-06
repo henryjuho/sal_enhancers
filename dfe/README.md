@@ -1,16 +1,16 @@
 # Estimating the DFE from the unfolded SNP SFS
 
-I fitted a model with a gamma distributed DFE to the intronic, utr and cds uSFS with 4fold SNPs as reference. Mutation 
-rates were assumed to be equal between neutral and selected sites. Runs were bootstrapped 100 times, through resampling 
-and replacement by gene.
+I fitted a model with a gamma distributed DFE to the intergenic, intronic, UTR, CDS and 0fold uSFS with 4fold SNPs as 
+reference, as well peaks in these regions, and all peaks together. Mutation rates were assumed to be equal between 
+neutral and selected sites - a requirement to calculate alpha. Runs were bootstrapped 100 times, through resampling and 
+replacement by gene.
 
-
-Anavar was run for each region to determine best fit model:
 
 ## 0 fold degenerate
 ```shell script
 mkdir /scratch/project_2002047/sal_enhance/0fold_dfe
-
+cat ../sfs/0fold_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/0fold_dfe/ss_0fold_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+ls /scratch/project_2002047/sal_enhance/0fold_dfe/*results.txt | python gather_bs_reps.py > salsal31_0fold_gamma-dfe_100bs.csv
 ```
 
 ## CDS regions
@@ -53,6 +53,19 @@ cat ../sfs/all_enhancers_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe c
 ls /scratch/project_2002047/sal_enhance/all_enhancers_dfe/*results.txt | python gather_bs_reps.py > salsal31_all-enhancers_gamma-dfe_100bs.csv
 ```
 
+## Peaks (0fold)
+
+```shell script
+mkdir /scratch/project_2002047/sal_enhance/0fold_enhancers_dfe  
+cat ../sfs/0fold_enhancers_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/0fold_enhancers_dfe/ss_cds-enhancers_0fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
+cd /scratch/project_2002047/sal_enhance/0fold_enhancers_dfe
+ls *results.txt | cut -d '_' -f 4-8 | while read i; do mv ss_cds-enhancers_0fold_$i ss_0fold-enhancers_$i; done
+cd -
+ll /scratch/project_2002047/sal_enhance/0fold_enhancers_dfe/*results.txt | grep -vw 1018 | tr -s ' ' | cut -d ' ' -f 8 | python gather_bs_reps.py > salsal31_0fold-enhancers_gamma-dfe_100bs.csv
+# 3 failed todo
+#ll /scratch/project_2002047/sal_enhance/cds_enhancers_dfe/*error |  grep -w 0 | tr -s ' ' | cut -d ' ' -f 9 | cut -d '.' -f 1-3 | while read i; do echo $i.results.txt; done | python gather_bs_reps.py > salsal31_cds-enhancers_gamma-dfe_100bs.csv
+```
+
 ## Peaks (CDS)
 
 ```shell script
@@ -92,7 +105,7 @@ Estimated DFEs were binned into selective categories and 95% confidence interval
 
 ```shell script
 ls salsal31_*_gamma-dfe_100bs.csv | python bin_dfe.py > binned_dfe_allregions.csv
-ls salsal31_*_gamma-dfe_100bs.csv | python bin_dfe.py > binned_gammadfe_allregions_nes_5bin.csv
+ls salsal31_*_gamma-dfe_100bs.csv | python bin_dfe.py > binned_gammadfe_allregions_nes.csv
 Rscript summarise_dfe.R
 ```
 

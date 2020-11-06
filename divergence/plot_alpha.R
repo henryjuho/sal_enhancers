@@ -8,8 +8,8 @@ setwd('~/sal_enhancers/divergence')
 alp <- read.csv('alpha_estimates.csv')
 
 str(alp)
-alp$region <- factor(alp$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', 'all-enhancers'))
-levels(alp$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (all)')
+alp$region <- factor(alp$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', '0fold-enhancers', 'all-enhancers'))
+levels(alp$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (0fold)', 'H3K27ac peaks (all)')
 
 alp$bin <- 'alpha'
 

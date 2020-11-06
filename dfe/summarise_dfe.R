@@ -13,8 +13,8 @@ setwd('~/sal_enhancers/dfe')
 dfe <- read.csv('binned_gammadfe_allregions_nes.csv')
 
 str(dfe)
-dfe$region <- factor(dfe$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', 'all-enhancers'))
-levels(dfe$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (all)')
+dfe$region <- factor(dfe$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', '0fold-enhancers', 'all-enhancers'))
+levels(dfe$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (0fold)', 'H3K27ac peaks (all)')
 
 levels(dfe$bin) <- c("0 - 1", "1 - 10", "10 - 100", "> 100")
 str(dfe)
@@ -49,8 +49,8 @@ dfe_plot <- ggplot(plot_data, aes(x=bin, y=proportion, fill=region)) +
 alp <- read.csv('../divergence/alpha_estimates.csv')
 
 str(alp)
-alp$region <- factor(alp$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', 'all-enhancers'))
-levels(alp$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (all)')
+alp$region <- factor(alp$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', '0fold-enhancers', 'all-enhancers'))
+levels(alp$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (0fold)', 'H3K27ac peaks (all)')
 
 alp$bin <- 'alpha'
 
@@ -87,6 +87,15 @@ g_legend<-function(a.gplot){
 leg <- g_legend(dfe_plot)
 
 png('binned_gammadfe_allregions_nes.png', width=7.5, height=3, units='in', res=320)
+
+layout <- rbind(c(1,1,1,1,1,1,2,2),
+                c(3,3,3,3,3,3,3,3))
+
+grid.arrange(dfe_plot + theme(legend.position="none"), alpha_plot, leg, layout_matrix=layout, heights=c(10,1))
+
+dev.off()
+
+pdf('binned_gammadfe_allregions_nes.pdf', width=7.5, height=3)
 
 layout <- rbind(c(1,1,1,1,1,1,2,2),
                 c(3,3,3,3,3,3,3,3))
