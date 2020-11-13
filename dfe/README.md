@@ -80,9 +80,9 @@ ll /scratch/project_2002047/sal_enhance/cds_enhancers_dfe/*error |  grep -w 0 | 
 ```shell script
 mkdir /scratch/project_2002047/sal_enhance/utr_enhancers_dfe 
 cat ../sfs/utr_enhancers_sfs_data.txt | python enhancer_dfe.py -n 62 -c 1 -dfe continuous -out_pre /scratch/project_2002047/sal_enhance/utr_enhancers_dfe/ss_utr-enhancers_4fold_continuous_equal_t -constraint equal_mutation_rate -n_search 1000
-# 4 jobs failed: todo
-ll /scratch/project_2002047/sal_enhance/utr_enhancers_dfe/*error | grep -vw 0 | tr -s ' ' | cut -d ' ' -f 9 | cut -d '.' -f 1-3 | while read i; do sbatch $i.sh; done
-ll /scratch/project_2002047/sal_enhance/utr_enhancers_dfe/*error | grep -w 0 | tr -s ' ' | cut -d ' ' -f 9 | cut -d '.' -f 1-3 | while read i; do echo $i.results.txt; done | python gather_bs_reps.py > salsal31_utr-enhancers_gamma-dfe_100bs.csv
+# rerunning - 7 jobs failed
+ll /scratch/project_2002047/sal_enhance/utr_enhancers_dfe/*error | grep -vw 0 | tr -s ' ' | cut -d ' ' -f 8 | cut -d '.' -f 1-3 | while read i; do sbatch $i.sh; done
+ll /scratch/project_2002047/sal_enhance/utr_enhancers_dfe/*error | grep -w 0 | tr -s ' ' | cut -d ' ' -f 8 | cut -d '.' -f 1-3 | while read i; do echo $i.results.txt; done | python gather_bs_reps.py > salsal31_utr-enhancers_gamma-dfe_100bs.csv
 ```
 
 ## Peaks (introns)
