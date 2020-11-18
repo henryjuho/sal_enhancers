@@ -38,8 +38,11 @@ dfe_plot <- ggplot(plot_data, aes(x=bin, y=proportion, fill=region)) +
         legend.text = element_text(colour = "black",size=6),
         axis.text.y = element_text(colour = "black",size=8),
         axis.text.x = element_text(colour = "black",size=8),
-        strip.background = element_blank())+
-  xlab(expression(N[e] * s)) +
+        plot.title = element_text(size=9, vjust=-6, hjust=0.007, face='bold'),
+        strip.background = element_blank(),
+        plot.margin = margin(t=0, r=5.5, b=5.5, l=5.5, unit = "pt"))+
+  xlab(expression(N[e] * s)) + ylab('proportion of variants') +
+  ggtitle('(a)') +
   guides(fill = guide_legend(nrow = 2))
 
 #=======================================================================================================================
@@ -66,15 +69,18 @@ alpha_plot <- ggplot(plot_data, aes(x=bin, y=alpha, fill=region)) +
   geom_bar(stat='identity', position = position_dodge(width=0.9)) +
   scale_fill_viridis(discrete = T) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), position = position_dodge(width=0.9), width=0.5) +
-  theme_classic() + labs(y='', x=expression(alpha)) +
+  theme_classic() + labs(x='', y=expression(alpha)) +
   theme(legend.title=element_blank(),
         legend.position = 'none',
         legend.margin = margin(t = -1, r = 0, b = 2, l = -10, unit = "mm"),
         legend.text = element_text(colour = "black",size=6),
         axis.text.y = element_text(colour = "black",size=8),
         axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
         strip.background = element_blank(),
-        plot.margin = margin(t=5.5, r=5.5, b=20, l=0, unit = "pt"))+
+        plot.title = element_text(size=9, vjust=-6, hjust=0.02, face='bold'),
+        plot.margin = margin(t=0, r=5.5, b=17, l=0, unit = "pt"))+
+  ggtitle('(b)') +
   guides(fill = guide_legend(nrow = 2))
 
 g_legend<-function(a.gplot){
