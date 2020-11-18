@@ -12,6 +12,26 @@ stats <- read.csv('summary_stats_usfs.csv')
 stats$region <- factor(stats$region, levels=rev(c('4fold', 'all_enhancers', 'intergenic', 'intergenic_enhancers', 'intron', 'intron_enhancers', 'utr', 'utr_enhancers', 'cds', 'cds_enhancers', '0fold', '0fold_enhancers')))
 levels(stats$region) <- rev(c('4fold degenerate', 'H3K27ac peaks (all)', 'intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold degenerate', 'H3K27ac peaks (0fold)'))
 
+grouping <- c()
+
+for (i in 1:length(stats$region)){
+
+  region <- stats$region[i]
+  g <- -1
+
+  if (region == '4fold degenerate') {g <- 0}
+  else if (region == 'H3K27ac peaks (all)') {g <- 1}
+  else if (region == 'intergenic' | region == 'H3K27ac peaks (intergenic)') {g <- 2}
+  else if (region == 'intron' | region == 'H3K27ac peaks (intron)') {g <- 3}
+  else if (region == 'UTR' | region == 'H3K27ac peaks (UTR)') {g <- 4}
+  else if (region == 'CDS' | region == 'H3K27ac peaks (CDS)') {g <- 5}
+  else if (region == '0fold degenerate' | region == 'H3K27ac peaks (0fold)') {g <- 6}
+
+  grouping <- c(grouping, g)
+}
+
+stats$group <- as.factor(grouping)
+
 raw <- subset(stats, bs==0)
 bs <- subset(stats, bs!=0)
 
@@ -38,31 +58,39 @@ theta_plot <- ggplot(plot_data, aes(x=region, y=theta)) +
         strip.background = element_blank())
 
 
-pi_plot <- ggplot(plot_data, aes(x=region, y=pi)) +
-  geom_point(stat='identity', position='dodge') +
-  scale_fill_manual(values=viridis(2)) +
+pi_plot <- ggplot(plot_data, aes(x=region, y=pi, fill=group)) +
   geom_errorbar(aes(ymin=p_lwr, ymax=p_upr), position = position_dodge(width=0.9), width=0.25) +
+  geom_point(stat='identity', position=position_dodge(width=0.9), shape=21, colour='black') +
+  scale_fill_viridis(discrete=T) +
   theme_classic() +
   labs(x='', y=expression(pi)) +
   theme(legend.title=element_text(colour = "black"),
-        legend.position = "bottom",
+        legend.position = "none",
         legend.text = element_text(colour = "black",size=8),
         axis.text.y = element_text(colour = "black",size=8),
         axis.text.x = element_text(colour = "black",size=8),
-        strip.background = element_blank()) + coord_flip()
+        strip.background = element_blank(),
+        plot.title = element_text(size=8, vjust=-8, hjust=0.05, face='bold'),
+        plot.margin = margin(t=0, r=5.5, b=5.5, l=5.5, unit = "pt")) + coord_flip() +
+  ggtitle('(a)')
 
-d_plot <- ggplot(plot_data, aes(x=region, y=tajimas_d)) +
-  geom_bar(stat='identity', position='dodge') +
-  scale_fill_manual(values=viridis(2)) +
+d_plot <- ggplot(plot_data, aes(x=region, y=tajimas_d, fill=group)) +
+  geom_hline(yintercept=0, linetype='dashed', colour='grey') +
   geom_errorbar(aes(ymin=d_lwr, ymax=d_upr), position = position_dodge(width=0.9), width=0.25) +
+  geom_point(stat='identity', position=position_dodge(width=0.9), shape=21, colour='black') +
+  scale_fill_viridis(discrete=T) +
   theme_classic() +
   labs(x='', y="Tajima's D") +
   theme(legend.title=element_text(colour = "black"),
-        legend.position = "bottom",
+        legend.position = "none",
         legend.text = element_text(colour = "black",size=8),
         axis.text.x = element_text(colour = "black",size=8),
+        axis.title.x = element_text(colour = "black",size=8),
         axis.text.y = element_blank(),
-        strip.background = element_blank()) + coord_flip()
+        plot.title = element_text(size=8, vjust=-8, hjust=0.05, face='bold'),
+        strip.background = element_blank(),
+        plot.margin = margin(t=0, r=5.5, b=5.5, l=-10, unit = "pt")) + coord_flip() +
+  ggtitle('(b)')
 
 pi_dat <-subset(plot_data, select=c('region', 'pi', 'p_lwr', 'p_upr'))
 colnames(pi_dat) <- c('region', 'value', 'lwr', 'upr')
@@ -95,18 +123,17 @@ facet_plot <- ggplot(facet_dat, aes(x=region, y=value)) +
 
 
 
-layout <- rbind(c(1,1,1,1,2,2,2))
+layout <- rbind(c(1,1,1,1,1,2,2,2))
 
-png('summary_stats.png', res=320, units='in', height=2.5, width=6)
+png('summary_stats.png', res=320, units='in', height=2, width=6)
 
-facet_plot
-#grid.arrange(pi_plot, d_plot, layout_matrix = layout)
+grid.arrange(pi_plot, d_plot, layout_matrix = layout)
 
 dev.off()
 
-pdf('summary_stats.pdf', height=2.5, width=6)
+pdf('summary_stats.pdf', height=2, width=6)
 
-facet_plot
-#grid.arrange(pi_plot, d_plot, layout_matrix = layout)
+#facet_plot
+grid.arrange(pi_plot, d_plot, layout_matrix = layout)
 
 dev.off()
