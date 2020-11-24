@@ -86,6 +86,7 @@ def main():
     parser.add_argument('-sfs_ref', help='SFS file', required=True)
     parser.add_argument('-sfs_target', help='SFS file', required=True)
     parser.add_argument('-bs_rep', help='Bootstrap replicates', default=100, type=int)
+    parser.add_argument('-n', help='sample size', default=31, type=int)
     args = parser.parse_args()
 
     sfs_ref = read_sfs_file(args.sfs_ref)
@@ -109,8 +110,8 @@ def main():
         neu_sfs, neu_call, sel_sfs, sel_call = sfs_for_locus_list(locus_list, sfs_ref, sfs_target)
 
         # convert to anavar form
-        neu_counts = ','.join([str(x) for x in sfs2counts(neu_sfs, n=62)])
-        sel_counts = ','.join([str(x) for x in sfs2counts(sel_sfs, n=62)])
+        neu_counts = ','.join([str(x) for x in sfs2counts(neu_sfs, n=2*args.n)])
+        sel_counts = ','.join([str(x) for x in sfs2counts(sel_sfs, n=2*args.n)])
 
         print(i, neu_counts, neu_call, sel_counts, sel_call, sep='\t')
 
