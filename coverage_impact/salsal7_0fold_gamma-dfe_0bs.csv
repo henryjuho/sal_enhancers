@@ -1,0 +1,2 @@
+run,imp,exit_code,neu_theta_1,neu_gamma_1,neu_e_1,sel_theta,sel_shape,sel_scale,sel_e,lnL,converged,bounds,rep,region
+614,1,3,0.000398075113957266,0,0,0.000398075113957266,0.343760414364771,220.313997287326,0.0536303756815137,156159.445216935,True,neu_e_1,0,0fold
