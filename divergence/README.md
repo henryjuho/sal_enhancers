@@ -1,7 +1,7 @@
-# Divergence estimates for different genomic regions using APE
+# Divergence estimates and alpha
 
-Intersecting whole genome alignment with desired sub regions, converting to a fasta file and calculating divergence for
-Atlantic salmon branch:
+Pipeline for intersecting the whole genome alignment with desired sub regions, converting to a fasta file and 
+calculating divergence for the Atlantic salmon branch from common ancestor with brown trout is as follows:
 
 ```shell script
 mkdir /scratch/project_2002047/sal_enhance/divergence
@@ -22,11 +22,12 @@ python get_region_fasta.py -wga /scratch/tuyida/bartonhe/sal_alignment/wgabed/At
 
 head -n 1 /scratch/project_2002047/sal_enhance/divergence/alpha_calc_div_all_enhancers.div.txt  > all_regs_div.txt
 cat /scratch/project_2002047/sal_enhance/divergence/alpha_calc_div*txt | grep -v region >> all_regs_div.txt
+```
 
+Alpha was then calculated using the DFE and the divergence estimates:
+
+```shell script
 cat ../dfe/salsal31_* | python calc_alpha_sal.py -div all_regs_div.txt > alpha_estimates.csv
-
 Rscript plot_alpha.R
-
-Rscript summarise_mles.R
 ```
 
