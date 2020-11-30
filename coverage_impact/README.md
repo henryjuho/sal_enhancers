@@ -37,5 +37,4 @@ cat 0fold_sfs_data_salsal7.txt | python ../dfe/enhancer_dfe.py -n 14 -c 1 -dfe c
 ls /scratch/project_2002047/barson_reseq/higher_cov/dfe/*results.txt | python ../dfe/gather_bs_reps.py > salsal7_0fold_gamma-dfe_0bs.csv
 ls salsal7_0fold_gamma-dfe_0bs.csv | python ../dfe/bin_dfe.py > binned_dfe_ss7_0fold.csv
 ```
-
-![](0fold_dfe_cov_comp.png)
+<img src=0fold_dfe_cov_comp.png width="320" height="320">
