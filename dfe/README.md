@@ -104,4 +104,4 @@ ls salsal31_*_gamma-dfe_100bs.csv | python bin_dfe.py > binned_gammadfe_allregio
 Rscript summarise_dfe.R
 ```
 
-<img src=binned_gammadfe_allregions_nes.png width=640, height=320>
+<img src=binned_gammadfe_allregions_nes.png height=320>
