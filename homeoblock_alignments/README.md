@@ -1,4 +1,4 @@
-# Alignments of salmon homeoblocks with northern pike outgroup
+# Alignments of salmon homeoblocks with northern pike outgroup (went unused)
 
 ## Genomes
 
