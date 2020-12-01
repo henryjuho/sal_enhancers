@@ -47,6 +47,6 @@ The scripts also make use of a number of python modules:
 
 There are also the following directories that contain pipelines that did not end up in the paper:
 
-[homeoblock_alignments/](homeoblock_alignments/): Pipeline for align homeoblocks in the salmon, not used for any analysis.
+[homeoblock_alignments/](homeoblock_alignments/): Pipeline for aligning homeoblocks in the salmon, not used for any analysis.
 
 [coverage_impact/](coverage_impact/): A sanity check to see if including low coverage individuals to maximise sample size and number of SNPs was skewing the estimated DFE. 
