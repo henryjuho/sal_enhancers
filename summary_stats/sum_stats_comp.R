@@ -89,7 +89,7 @@ d_plot <- ggplot(plot_data, aes(x=region, y=tajimas_d, fill=group)) +
         axis.text.y = element_blank(),
         plot.title = element_text(size=8, vjust=-8, hjust=0.05, face='bold'),
         strip.background = element_blank(),
-        plot.margin = margin(t=0, r=5.5, b=5.5, l=-10, unit = "pt")) + coord_flip() +
+        plot.margin = margin(t=0, r=8, b=5.5, l=-10, unit = "pt")) + coord_flip() +
   ggtitle('(b)')
 
 pi_dat <-subset(plot_data, select=c('region', 'pi', 'p_lwr', 'p_upr'))
