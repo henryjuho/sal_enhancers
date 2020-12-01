@@ -58,7 +58,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-sel', help='if specified use selected sfs', default=False, action='store_true')
     args = parser.parse_args()
-    n = 60
+    n = 62
 
     print('bs', 'region', 'theta', 'pi', 'tajimas_d', 'n_call', sep=',')
 
