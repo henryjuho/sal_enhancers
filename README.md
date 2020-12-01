@@ -3,7 +3,9 @@
 This repository contains the code and command lines for the re-sequencing calling pipeline and DFE analysis presented in 
 Verta et al. (2020 - preprint) (<https://www.biorxiv.org/content/10.1101/2020.11.20.389684v1.abstract>). The different 
 analysis and preparation steps are contained in their own subdirectories which are outlined below in rough sequential 
-order:
+order.
+
+## Contents 
 
 [annotation/](annotation/): containes the code for downloading the reference genome and coordinate files from NCBI, as well as code to calculate coordinates for sites without coordinates in the GFF file.
 
@@ -23,9 +25,13 @@ order:
 
 [divergence/](divergence/): Estimating divergence from the genome alignment using APE and estimating alpha with the DFE and divergence estimates.
 
+## A note on the cluster
+
 A lot of the pipeline scripts write and submit jobs on SLURM based CSC computer cluster Puhti (<https://docs.csc.fi/computing/overview/>).
 This behaviour can be changed by substituting the line ```from qsub import q_sub``` with ```from qsub import q_write as q_sub``` at the top
 of the offending python scripts.
+
+## Python requirements
 
 The scripts also make use of a number of python modules:
 
@@ -36,6 +42,8 @@ The scripts also make use of a number of python modules:
 ```sfs_utils```: <https://github.com/henryjuho/sfs_utils> - code for extracting frequency data from VCF files
 
 ```pysam```: <https://pysam.readthedocs.io/en/latest/api.html> - module for working with VCF, BED, FASTA and other files in python.
+
+## Other directories
 
 There are also the following directories that contain pipelines that did not end up in the paper:
 
