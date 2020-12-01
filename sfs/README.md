@@ -1,6 +1,7 @@
 # Generating site frequency spectra
 
-For 4fold sites, CDS, UTRs, introns.
+I extracted frequency data per gene (or per nearest gene) for 0fold sites, 4fold sites, CDS, UTRs and introns, as well
+as the number of call sites for each gene in each category. Firstly this was done using all SNPs in each category.
 
 ```shell script
 mkdir /scratch/project_2002047/sal_enhance/sfs
@@ -38,7 +39,7 @@ head -n 1 /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.intergenic
 cat /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.intergenic.NC*.1.txt | grep -v ^region >> /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.intergenic.all.txt
 ```
 
-For enhancers, the nearest gene was identified for each region (for bootstrapping by gene).
+Secondly for enhancers, the nearest gene was identified for each peak.
 
 ```shell script
 cat filtered_outputPeaksGCnorm.bed | sort -k1,1 -k2,2n | cut -f1,2,3 | bgzip -c > enhancer_peaks.bed.gz
@@ -48,7 +49,7 @@ bedtools closest -t first -a enhancer_peaks.bed.gz -b /scratch/tuyida/bartonhe/s
 tabix -pbed enhancer_peaks_nearestgene.bed.gz
 ```
 
-Then enhancers were subset into 0fold CDS UTRs, intronic and intergenic:
+These peaks were the subset into 0fold CDS UTRs, intronic and intergenic SNPs:
 
 ```shell script
 bedtools intersect -a enhancer_peaks_nearestgene.bed.gz -b /scratch/tuyida/bartonhe/sal_ref/salmo_salar_0fold.bed.gz | sort -k1,1 -k2,2n | bgzip -c > enhancers_0fold.bed.gz
@@ -60,7 +61,7 @@ bedtools intersect -a enhancer_peaks_nearestgene.bed.gz -b /scratch/tuyida/barto
 ls enhancers_*.bed.gz | while read i; do tabix -pbed $i; done
 ```
 
-Frequency data for enhancers was then generated:
+Frequency data for all enhancers and each peak subset was then generated:
 
 ```shell script
 mkdir /scratch/project_2002047/sal_enhance/enhance_sfs
@@ -90,7 +91,8 @@ head -n 1 /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.in
 cat /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.intergenic_enhancers.NC*.1.txt | grep -v ^region >> /scratch/project_2002047/sal_enhance/enhance_sfs/sfs_ncall_regional.intergenic_enhancers.all.txt
 ```
 
-SFS data was then prepared:
+The per gene sfs data was then used to obtain the raw sfs for each region and 100 bootstrap replicates for each. Resampling
+with replacement was run in tandem for focal sites and neutral reference for each intended anavar analysis.
 
 ```shell script
 python prep_anavar_data.py -sfs_ref /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.4fold.all.txt -sfs_target /scratch/project_2002047/sal_enhance/sfs/sfs_ncall_regional.0fold.all.txt -bs_rep 100 > 0fold_sfs_data.txt
@@ -110,35 +112,11 @@ python prep_anavar_data.py -sfs_ref /scratch/project_2002047/sal_enhance/sfs/sfs
 
 ## Plotted SFS
 
+The SFS was visualised
+
 ```shell script
 ls *sfs_data.txt | python longform_sfs.py > plottable_sfs.csv
 Rscript sfs_plots.R 
 ```
 
 ![](sfs_plot.png)
-
-# Comparing SFS from GATK pipeline with ANGSD SFS
-
-Genomewise SFS from gatk pipeline
-
-```shell script
-~/sfs_utils/vcf2raw_sfs.py -vcf /scratch/project_2002047/barson_reseq/post_vqsr/salsal_31.autosomes.t99_5_snps.allfilters.polarised.vcf.gz -mode snp -folded | sort | uniq -c | tr -s ' ' | cut -d ' ' -f 2-3 > salsal31_sfs_folded_genomewide.txt
-~/sfs_utils/vcf2raw_sfs.py -vcf /scratch/project_2002047/barson_reseq/t99.9_post_vqsr/salsal_31.autosomes.t99_9_snps.allfilters.vcf.gz -mode snp -folded | sort | uniq -c | tr -s ' ' | cut -d ' ' -f 2-3 > salsal31_sfs_folded_genomewide_t_99.txt
-~/sfs_utils/vcf2raw_sfs.py -vcf /scratch/project_2002047/barson_reseq/t95.0_post_vqsr/salsal_31.autosomes.t95_0_snps.allfilters.vcf.gz -mode snp -folded | sort | uniq -c | tr -s ' ' | cut -d ' ' -f 2-3 > salsal31_sfs_folded_genomewide_t_95.txt
-
-```
-
-Genomwide SFS from bam files with angsd
-
-```shell script
-mkdir /scratch/project_2002047/barson_reseq/angsd_sfs_gl2_nobaq_mapq5_q10_depth2
-ls /scratch/project_2002047/barson_mapping_v2/bqsr_bams/*bam > salsal31_bam_list.txt
-
-sed 's/ /\t/g' /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_autosomes.bed | bgzip -c > /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_autosomes.bed.gz
-tabix -pbed /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_autosomes.bed.gz
-bedtools subtract -a /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_autosomes.bed.gz -b /scratch/tuyida/bartonhe/sal_ref/salmo_salar_repeats.bed.gz | bgzip -c > /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_nonrep.bed.gz
-tabix -pbed /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_nonrep.bed.gz
-
-python chromosomal_angsd.py -bam_list salsal31_bam_list.txt -ref /scratch/project_2002047/sal_reseq_v_mapping/bams/Reference_genome_with_SDY/GCF_000233375.1_ICSASG_v2_genomic_with_SDY.fna -autosome_list /scratch/tuyida/bartonhe/sal_ref/autosomes_list.txt -bed /scratch/tuyida/bartonhe/sal_ref/GCF_000233375.1_ICSASG_v2_nonrep.bed.gz -out /scratch/project_2002047/barson_reseq/angsd_sfs_gl2_nobaq_mapq5_q10_depth2/salsal31_angsd
-ls /scratch/project_2002047/barson_reseq/angsd_sfs_gl2_nobaq_mapq5_q10_depth2*.sfs | python merge_angsd_sfs.py > salsal31_sfs_folded_genomewide_angsd_gl2_nobaq_mapq5_q10_depth2.txt
-```
