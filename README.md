@@ -28,8 +28,8 @@ order.
 ## A note on the cluster
 
 A lot of the pipeline scripts write and submit jobs on SLURM based CSC computer cluster Puhti (<https://docs.csc.fi/computing/overview/>).
-This behaviour can be changed by substituting the line ```from qsub import q_sub``` with ```from qsub import q_write as q_sub``` at the top
-of the offending python scripts.
+This behaviour can be changed from submitting the job to only writing the batch file by substituting the line 
+```from qsub import q_sub``` with ```from qsub import q_write as q_sub``` at the top of the offending python scripts.
 
 ## Python requirements
 
