@@ -2,8 +2,13 @@ library(ggplot2)
 library(dplyr)
 library(viridis)
 library(gridExtra)
+library(comprehenr)
 
 setwd('~/sal_enhancers/dfe')
+
+c1 <- viridis(n=6)
+c2 <- adjustcolor(c1, alpha.f=0.5)
+colours <- to_vec(for(i in 1:6) c(c1[i], c2[i]))
 
 #=======================================================================================================================
 #     DFE
@@ -16,7 +21,7 @@ str(dfe)
 dfe$region <- factor(dfe$region, levels=c('intergenic', 'intergenic-enhancers', 'intron', 'intron-enhancers', 'utr', 'utr-enhancers', 'cds', 'cds-enhancers', '0fold', '0fold-enhancers', 'all-enhancers'))
 levels(dfe$region) <- c('intergenic', 'H3K27ac peaks (intergenic)', 'intron', 'H3K27ac peaks (intron)', 'UTR', 'H3K27ac peaks (UTR)', 'CDS', 'H3K27ac peaks (CDS)', '0fold', 'H3K27ac peaks (0fold)', 'H3K27ac peaks (all)')
 
-levels(dfe$bin) <- c("0 - 1", "1 - 10", "10 - 100", "> 100")
+levels(dfe$bin) <- c("0 - 1\nneutral", "1 - 10\nweakly deleterious", "10 - 100\ndeleterious", "> 100\nstrongly deleterious")
 str(dfe)
 
 raw <- subset(dfe, rep==0)
@@ -29,7 +34,7 @@ plot_data <- full_join(raw, cis)
 
 dfe_plot <- ggplot(plot_data, aes(x=bin, y=proportion, fill=region)) +
   geom_bar(stat='identity', position = position_dodge(width=0.9)) +
-  scale_fill_viridis(discrete = T) +
+  scale_fill_manual(values=colours) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), position = position_dodge(width=0.9), width=0.5) +
   theme_classic() +
   theme(legend.title=element_blank(),
@@ -67,7 +72,7 @@ plot_data <- full_join(raw, cis)
 
 alpha_plot <- ggplot(plot_data, aes(x=bin, y=alpha, fill=region)) +
   geom_bar(stat='identity', position = position_dodge(width=0.9)) +
-  scale_fill_viridis(discrete = T) +
+  scale_fill_manual(values=colours) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), position = position_dodge(width=0.9), width=0.5) +
   theme_classic() + labs(x='', y=expression(alpha)) +
   theme(legend.title=element_blank(),
@@ -79,7 +84,7 @@ alpha_plot <- ggplot(plot_data, aes(x=bin, y=alpha, fill=region)) +
         axis.ticks.x = element_blank(),
         strip.background = element_blank(),
         plot.title = element_text(size=9, vjust=-6, hjust=0.02, face='bold'),
-        plot.margin = margin(t=0, r=5.5, b=17, l=0, unit = "pt"))+
+        plot.margin = margin(t=0, r=5.5, b=24, l=0, unit = "pt"))+
   ggtitle('(b)') +
   guides(fill = guide_legend(nrow = 2))
 
