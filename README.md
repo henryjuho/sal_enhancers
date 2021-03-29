@@ -1,7 +1,7 @@
-# DFE analysis pipeline from Verta et al. (2020 - preprint)
+# DFE analysis pipeline from Verta et al. (2021)
 
 This repository contains the code and command lines for the re-sequencing calling pipeline and DFE analysis presented in 
-Verta et al. (2020 - preprint) (<https://www.biorxiv.org/content/10.1101/2020.11.20.389684v1.abstract>). The different 
+Verta et al. (2021) (<https://academic.oup.com/gbe/advance-article/doi/10.1093/gbe/evab059/6179807>). The different 
 analysis and preparation steps are contained in their own subdirectories which are outlined below in rough sequential 
 order.
 
